@@ -3,15 +3,28 @@ ZEN CODING:
 =====================================================
 form>div.form-group>label+select
 div.form-group>label[for='model']+select[id='model'].form-control
+div.checkbox>label>input[type='checkbox']
 -->
 <h1>New Vehicle</h1>
 <form>
   <div class="form-group">
     <label for="make">Make</label>
-    <select id="make" class="form-control"></select>
+    <select id="make" class="form-control" name="make" (change)="onMakeChange()" [(ngModel)]="vehicle.make">
+      <option value=""></option>
+      <option *ngFor="let m of makes" value="{{ m.id }}">{{ m.name }}</option>
+    </select>
   </div>
   <div class="form-group">
     <label for="model">Model</label>
-    <select id="model" class="form-control"></select>
+    <select id="model" class="form-control">
+      <option value=""></option>
+      <option *ngFor="let m of models" value="{{ m.id }}">{{ m.name }}</option>
+    </select>
+  </div>
+  <h2>Features</h2>
+  <div *ngFor="let f of features" class="checkbox">
+    <label for="feature{{ f.id }}">
+      <input type="checkbox" id="feature{{ f.id }}"> {{ f.name }}
+    </label>
   </div>  
 </form>
