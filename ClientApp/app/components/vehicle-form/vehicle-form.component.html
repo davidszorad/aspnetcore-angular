@@ -4,6 +4,9 @@ ZEN CODING:
 form>div.form-group>label+select
 div.form-group>label[for='model']+select[id='model'].form-control
 div.checkbox>label>input[type='checkbox']
+div.radio>label>input[type='radio']
+(div.form-group>label+input[type='text'].form-control)*3
+button.btn.btn-primary
 -->
 <h1>New Vehicle</h1>
 <form>
@@ -14,6 +17,13 @@ div.checkbox>label>input[type='checkbox']
       <option *ngFor="let m of makes" value="{{ m.id }}">{{ m.name }}</option>
     </select>
   </div>
+  <p>Is this vehicle registered?</p>
+  <label for="registered" class="radio-inline">
+    <input type="radio" id="registered" name="isRegistered" value="true"> Yes
+  </label>
+  <label for="notRegistered" class="radio-inline">
+    <input type="radio" id="notRegistered" name="isRegistered" value="false"> No
+  </label>
   <div class="form-group">
     <label for="model">Model</label>
     <select id="model" class="form-control">
@@ -26,5 +36,19 @@ div.checkbox>label>input[type='checkbox']
     <label for="feature{{ f.id }}">
       <input type="checkbox" id="feature{{ f.id }}"> {{ f.name }}
     </label>
-  </div>  
+  </div>
+  <h2>Contact</h2>
+  <div class="form-group">
+    <label for="contactName">Name</label>
+    <input id="contactName" type="text" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="contactPhone">Phone</label>
+    <input id="contactPhone" type="text" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="contactEmail">Email</label>
+    <input id="contactEmail" type="text" class="form-control">
+  </div>
+  <button class="btn btn-primary">Save</button>
 </form>
