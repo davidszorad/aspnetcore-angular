@@ -22,7 +22,7 @@ namespace vega.Models
         [StringLength(255)]
         public string ContactPhone { get; set; }
         public DateTime LastUpdate  { get; set; }
-        ICollection<VehicleFeature> Features { get; set; }
+        public ICollection<VehicleFeature> Features { get; set; }
 
         public Vehicle()
         {
