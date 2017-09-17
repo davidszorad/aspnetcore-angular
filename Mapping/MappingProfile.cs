@@ -27,26 +27,17 @@ namespace vega.Mapping
                 .ForMember(v => v.Features, opt => opt.Ignore())
                 .AfterMap((vr, v) => {
                     // Remove unselected features --> "v" contains feature that was just removed from "vr"
-                    var removedFeatures = new List<VehicleFeature>;
-                    foreach (var f in v.Features)
-                    {
-                        if (!vr.Features.Contains(f.FeatureId))
-                        {
-                            removedFeatures.Add(f);  // we cannot remove it directly from "v" as we are iterating "v"
-                        }
-                    }
+                    var removedFeatures = v.Features.Where(f => !vr.Features.Contains(f.FeatureId));  // started with Select (the result was IEnumerable of boolean then we replaced it with where)
                     foreach (var f in removedFeatures)
                     {
                         v.Features.Remove(f);
                     }
 
                     // Add new features --> a new feature was just added to "vr" so we need to add it to "v" as well
-                    foreach (var id in vr.Features)
+                    var addedFeatures = vr.Features.Where(id => !v.Features.Any(f => f.FeatureId == id));  // started with Select (the result was IEnumerable of boolean then we replaced it with where)
+                    foreach (var id in addedFeatures)
                     {
-                        if (!v.Features.Any(f => f.FeatureId == id))
-                        {
-                            v.Features.Add(new VehicleFeature { FeatureId = id });
-                        }
+                        v.Features.Add(new VehicleFeature { FeatureId = id });
                     }
                 });
         }
