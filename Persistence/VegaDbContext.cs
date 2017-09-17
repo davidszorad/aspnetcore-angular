@@ -12,5 +12,12 @@ namespace vega.Persistence
         {
             
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<VehicleFeature>().HasKey(vf => 
+                new { vf.VehicleId, vf.FeatureId } // [new anonymous object] key for this entity has these two properties -> composite primary key
+            );
+        }
     }
 }
