@@ -34,10 +34,10 @@ namespace vega.Mapping
                     }
 
                     // Add new features --> a new feature was just added to "vr" so we need to add it to "v" as well
-                    var addedFeatures = vr.Features.Where(id => !v.Features.Any(f => f.FeatureId == id));  // started with Select (the result was IEnumerable of boolean then we replaced it with where)
-                    foreach (var id in addedFeatures)
+                    var addedFeatures = vr.Features.Where(id => !v.Features.Any(f => f.FeatureId == id)).Select(id => new VehicleFeature { FeatureId = id });  // projection --> last select --> get id and project it to new VehicleFeature object
+                    foreach (var f in addedFeatures)
                     {
-                        v.Features.Add(new VehicleFeature { FeatureId = id });
+                        v.Features.Add(f);
                     }
                 });
         }
